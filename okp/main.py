@@ -40,24 +40,13 @@ class Exchange(object):
             self.lastprojtext = text
             notification.notify(title='Tuturu',message='You got proj',app_name='Tuturu')
             fss.write(text+' not '+self.lastprojtext+'\n') #debg
-    def CheckforMess(self):
-        z = requests.get(self.mess, cookies=self.session.cookies)
-        soup = BeautifulSoup(z.text, 'html.parser')
-        nuser = soup.find("span", {"class": self.messind}).text #fix it
-        text = str(nuser)
-        print(nuser) #deb
-        fss = open('log.txt','a', encoding='utf-8') #just for check the answer
-
-        if(text == self.lastmessage):
-            print('no new message')
-            fss.write(text+' = '+self.lastmessage+'\n') #debg
-
-        else:
-            print('new message')
-            self.lastmessage = text
-            notification.notify(title='Tuturu',message='You got mess',app_name='Tuturu')
-            fss.write(text+' not '+self.lastmessage+'\n') #debg
+            text = str(soup.find("div", {"class": 'breakwords'}).text)
+            print(text)
+            text = str(soup.find("div", {"class": 'wants-card__header-price'}).text)
+            print(text)
         
+  
+       
     def Update(self):
         self.CheckforProj()
         self.timer.cancel()
@@ -67,7 +56,7 @@ class Exchange(object):
 #creating kwork object
 data = {'track_client_id': '2131145171.1548624821', 'l_username': passlog[0],'l_password':passlog[1]}
 #makin' request data
-kwork = Exchange('https://kwork.ru/api/user/login',data, 'https://kwork.ru/projects', 'wants-card__header-title', 'https://kwork.ru/inbox' , 'm-bold' )
+kwork = Exchange('https://kwork.ru/api/user/login',data, 'https://kwork.ru/projects?c=11&', 'wants-card__header-title', 'https://kwork.ru/inbox' , 'm-bold' )
 kwork.Login()
 
 

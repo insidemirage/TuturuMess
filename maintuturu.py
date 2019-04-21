@@ -23,7 +23,7 @@ class Exchange(object):
         self.messind = messind  # messind - ind to find message
         self.session = requests.Session() 
         self.lastprojtext = '' # to check for upd
-        self.timer = Timer(300, self.Update) #time of checking
+        self.timer = Timer(10, self.Update) #time of checking
         self.lastmessage = ''
     def Login(self):
         self.r = self.session.post(self.url, data=self.logdata)
@@ -41,36 +41,42 @@ class Exchange(object):
         else:
             print('you have got new project')
             self.lastprojtext = text
-            notification.notify(title='Tuturu',message='You got proj',app_name='Tuturu')
+            # notification.notify(title='Tuturu',message='You got proj',app_name='Tuturu')
             fss.write(text+' not '+self.lastprojtext+'\n') #debg
     def CheckforMess(self):
         z = requests.get(self.mess, cookies=self.session.cookies)
         soup = BeautifulSoup(z.text, 'html.parser')
-        nuser = soup.find("span", {"class": self.messind}).text #fix it
-        text = str(nuser)
-        print(nuser) #deb
+        nuser = soup.find_all("span", {"class": self.messind}) #fix it
+        # text = str(nuser)
+        # print(nuser)
+        # print(nuser) #deb
         fss = open('log.txt','a', encoding='utf-8') #just for check the answer
-
+        if not nuser:
+            print('New messages:0')
+            return False
+        text = nuser[0].text
+        print(text)
         if(text == self.lastmessage):
             print('no new message')
             fss.write(text+' = '+self.lastmessage+'\n') #debg
-
+            print('New messages: '+str(len(nuser)))
         else:
             print('new message')
             self.lastmessage = text
             notification.notify(title='Tuturu',message='You got mess',app_name='Tuturu')
             fss.write(text+' not '+self.lastmessage+'\n') #debg
-        
+            print('New messages: '+str(len(nuser)))
+            
     def Update(self):
         self.CheckforProj()
         self.CheckforMess()
         self.timer.cancel()
-        self.timer = Timer(300, self.Update)
+        self.timer = Timer(10, self.Update)
         self.timer.start()
 
 #creating kwork object
 data = {'track_client_id': '2131145171.1548624821', 'l_username': passlog[0],'l_password':passlog[1]}
 #makin' request data
-kwork = Exchange('https://kwork.ru/api/user/login',data, 'https://kwork.ru/projects', 'wants-card__header-title', 'https://kwork.ru/inbox' , 'm-bold' )
+kwork = Exchange('https://kwork.ru/api/user/login',data, 'https://kwork.ru/projects', 'wants-card__header-title', 'https://kwork.ru/inbox?s=unread' , 'm-bold' )
 kwork.Login()
 

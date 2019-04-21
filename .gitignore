@@ -2,4 +2,7 @@ kwork.js
 password.txt
 answer.html
 ./okp/log.txt
-log.txt
+./log.txt
+config.ini
+*.pyc
+*.txt

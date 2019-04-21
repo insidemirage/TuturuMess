@@ -5,4 +5,4 @@ def CheckconfiginiFile():
     config.read('config.ini')
     CreateForm(config['kwork']['pass'], config['kwork']['login'])
 CheckconfiginiFile()
-    #tututut
+    #tututut21

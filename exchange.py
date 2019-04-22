@@ -20,9 +20,17 @@ class Exchange(object):
         self.r = self.session.post(self.url, data=self.logdata)
         self.timer.start()
         self.Update()
+   
+    def Update(self):
+        self.CheckforProj()
+        self.CheckforMess()
+        self.timer.cancel()
+        self.timer = Timer(self.upd, self.Update)
+        self.timer.start()
+        
+class Kwork(Exchange):
     def CheckforProj(self):
         z = requests.get(self.projects, cookies=self.session.cookies)
-        fss = open('log.txt','a', encoding='utf-8') #just for check the answer
         soup = BeautifulSoup(z.text, 'html.parser')
         text = str(soup.find("div", {"class": self.projectsind}).text)
         if(text == self.lastprojtext):
@@ -38,7 +46,6 @@ class Exchange(object):
         z = requests.get(self.mess, cookies=self.session.cookies)
         soup = BeautifulSoup(z.text, 'html.parser')
         nuser = soup.find_all("span", {"class": self.messind}) #fix it
-        fss = open('log.txt','a', encoding='utf-8') #just for check the answer
         if not nuser:
             print('New messages:0')
             return False
@@ -46,18 +53,10 @@ class Exchange(object):
         print(text)
         if(text == self.lastmessage):
             print('no new message')
-            fss.write(text+' = '+self.lastmessage+'\n') #debg
             print('New messages: '+str(len(nuser)))
         else:
             print('new message')
             self.lastmessage = text
             notification.notify(title='Tuturu',message='You got mess',app_name='Tuturu')
-            fss.write(text+' not '+self.lastmessage+'\n') #debg
             print('New messages: '+str(len(nuser)))
             
-    def Update(self):
-        self.CheckforProj()
-        self.CheckforMess()
-        self.timer.cancel()
-        self.timer = Timer(self.upd, self.Update)
-        self.timer.start()

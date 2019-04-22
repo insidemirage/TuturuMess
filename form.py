@@ -1,8 +1,8 @@
 from tkinter import *
-from exchange import Exchange
+from exchange import *
 def CreateForm(passw,login):
     data = {'l_username': login,'l_password':passw}
-    kwork = Exchange('https://kwork.ru/api/user/login',data, 'https://kwork.ru/projects', 'wants-card__header-title', 'https://kwork.ru/inbox?s=unread' , 'm-bold', 150)
+    kwork = Kwork('https://kwork.ru/api/user/login',data, 'https://kwork.ru/projects', 'wants-card__header-title', 'https://kwork.ru/inbox?s=unread' , 'm-bold', 150)
     root = Tk()
     root.title("Tuturu Mess")
     root.geometry('300x400')

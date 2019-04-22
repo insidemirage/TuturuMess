@@ -1,5 +1,7 @@
 from tkinter import *
 from exchange import *
+from threading import Timer
+
 # need to make timer here not exchange!!
 class Window(object):
     def __init__(self, data):
@@ -13,6 +15,8 @@ class Window(object):
         self.frame = []
         self.btnadd = Button(text='Add exchange')
         self.exch = []
+        self.timer = Timer(15, self.TimerThe) #time of checking
+        self.timer.start()
         for i in range(0, len(data)):
             self.frame.append(Frame(self.root,bd=1,bg='white', relief=RAISED))
             self.labelmessage.append(Label(self.frame[i], text='Messages: 0',bg='white', justify='left'))
@@ -26,3 +30,9 @@ class Window(object):
     def InitForm(self):
         self.btnadd.pack()
         self.root.mainloop()
+    def TimerThe(self):
+        for i in range(0, len(self.exch)):
+            self.exch[i].Update()
+        self.timer.cancel()
+        self.timer = Timer(15, self.TimerThe) #time of checking
+        self.timer.start()

@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from threading import Timer
 from plyer import notification
 class Exchange(object):
     def __init__(self, url, logdata, projects, projectsind, mess, messind, upd, messagelabel, projectlabel):
@@ -12,7 +11,6 @@ class Exchange(object):
         self.messind = messind  # messind - ind to find message
         self.session = requests.Session() 
         self.lastprojtext = '' # to check for upd
-        self.timer = Timer(upd, self.Update) #time of checking
         self.lastmessage = ''
         self.upd = upd
         self.messagelabel = messagelabel
@@ -22,15 +20,9 @@ class Exchange(object):
         print(self.logdata['l_username'])
 
         self.r = self.session.post(self.url, data=self.logdata)
-        self.timer.start()
         self.Update()
    
-    def Update(self):
-        self.CheckforProj()
-        self.CheckforMess()
-        self.timer.cancel()
-        self.timer = Timer(self.upd, self.Update)
-        self.timer.start()
+   
         
 class Kwork(Exchange):
     def CheckforProj(self):
@@ -64,4 +56,7 @@ class Kwork(Exchange):
             self.lastmessage = text
             notification.notify(title='Tuturu',message='You got mess',app_name='Tuturu')
             print('New messages: '+str(len(nuser)))
+    def Update(self):
+        self.CheckforProj()
+        self.CheckforMess()
             

@@ -1,10 +1,9 @@
-import browser_cookie3
 import requests
 from bs4 import BeautifulSoup
 from threading import Timer
 from plyer import notification
 class Exchange(object):
-    def __init__(self, url, logdata, projects, projectsind, mess, messind, upd):
+    def __init__(self, url, logdata, projects, projectsind, mess, messind, upd, messagelabel, projectlabel):
         self.url = url  # url - sign in url
         self.logdata =  logdata # logdata - post for sign in 
         self.projects = projects    # projects - url projects page
@@ -16,7 +15,12 @@ class Exchange(object):
         self.timer = Timer(upd, self.Update) #time of checking
         self.lastmessage = ''
         self.upd = upd
+        self.messagelabel = messagelabel
+        self.projectlabel = projectlabel
+        self.Login()
     def Login(self):
+        print(self.logdata['l_username'])
+
         self.r = self.session.post(self.url, data=self.logdata)
         self.timer.start()
         self.Update()
@@ -39,7 +43,7 @@ class Kwork(Exchange):
         else:
             print('you have got new project')
             self.lastprojtext = text
-            notification.notify(title='Tuturu',message='You got proj',app_name='Tuturu')
+            # notification.notify(title='Tuturu',message='You got proj',app_name='Tuturu')
     def CheckforMess(self):
         z = requests.get(self.mess, cookies=self.session.cookies)
         soup = BeautifulSoup(z.text, 'html.parser')
@@ -49,9 +53,12 @@ class Kwork(Exchange):
             return False
         text = nuser[0].text
         print(text)
+        print(self.logdata['l_username'])
+        self.messagelabel.config(text = 'new')
         if(text == self.lastmessage):
             print('no new message')
             print('New messages: '+str(len(nuser)))
+            
         else:
             print('new message')
             self.lastmessage = text

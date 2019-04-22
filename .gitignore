@@ -6,3 +6,4 @@ answer.html
 config.ini
 *.pyc
 *.txt
+*.db

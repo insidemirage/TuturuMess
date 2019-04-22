@@ -35,13 +35,11 @@ class Kwork(Exchange):
         text = str(soup.find("div", {"class": self.projectsind}).text)
         if(text == self.lastprojtext):
             print('no new project appeared')
-            fss.write(text+' = '+self.lastprojtext+'\n') #debg
 
         else:
             print('you have got new project')
             self.lastprojtext = text
             notification.notify(title='Tuturu',message='You got proj',app_name='Tuturu')
-            fss.write(text+' not '+self.lastprojtext+'\n') #debg
     def CheckforMess(self):
         z = requests.get(self.mess, cookies=self.session.cookies)
         soup = BeautifulSoup(z.text, 'html.parser')

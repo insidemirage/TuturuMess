@@ -11,7 +11,7 @@ how to run:
 - Clone or download latest rep version
 - Install python 3+
 - Install packages bellow
-```
+```bash
 pip install requests
 pip install bs4
 pip install requests

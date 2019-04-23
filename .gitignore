@@ -6,6 +6,9 @@ answer.html
 config.ini
 *.pyc
 *.txt
-*.db
-*.html
-stash/*
+stash/maintuturu.py
+data.db
+index.html
+stash/bd_controller.py
+stash/exchange.py
+stash/form.py

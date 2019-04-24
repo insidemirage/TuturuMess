@@ -64,8 +64,7 @@ class Program(object):
                 self.labelmessage[i].pack(anchor='nw')            
                 self.labelproj[i].pack(anchor='nw')
                 self.frame[i].pack(fill='x', ipady=5)
-                self.exch.append(Exchange('https://kwork.ru/api/user/login', self.data[i][1], self.data[i][2], self.debug[i], 'wants-card__header-title',self.labelproj[i], 300))
-        
+                self.exch.append(Exchange('https://kwork.ru/api/user/login', self.data[i][1], self.data[i][2], self.debug[i], 'wants-card__header-title',self.labelproj[i], 'https://kwork.ru/inbox', 'm-bold', self.labelmessage[i], 300))
         else:
             #modal if db ! db
             print('Error db not found')
@@ -115,7 +114,7 @@ class Program(object):
 
 
 class Exchange(object):
-    def __init__(self, logurl, username, password, projectpage, projectsfind, projlb,timer ):
+    def __init__(self, logurl, username, password, projectpage, projectsfind, projlb,messpage, messind, messl ,timer ):
         self.loginurl = logurl
         self.uspass = username
         self.passw = password
@@ -130,6 +129,11 @@ class Exchange(object):
         self.numberofproj = 0
         self.lastproj = ''
         self.projlb = projlb
+        self.messp = messpage
+        self.messi = messind
+        self.messagelabel = messl
+        self.lmessage = ''
+        self.nubmerofmess = 0
         self.Update()
     def CheckForProjects(self):
         z = requests.get(self.projp, cookies= self.session.cookies)
@@ -147,9 +151,31 @@ class Exchange(object):
             self.lastproj = nuser
         else:
             print('no new projects')
+    def CheckForMess(self):
+        z = requests.get(self.messp, cookies=self.session.cookies)
+        soup = BeautifulSoup(z.text, 'html.parser')
+        nuser = soup.find_all("span", {"class": self.messi}) #fix it
+        if not nuser:
+            print('New messages:0')
+            return False
+        text = nuser[0].text
+        print(text)
+        print(self.logdata['l_username'])
+        if(text == self.lmessage):
+            print('no new message')
+            print('New messages: '+str(len(nuser)))
+            self.messagelabel.config(text = 'New messages:{0}'.format(len(nuser)))
+        else:
+            print('new message')
+            self.lmessage = text
+            # notification.notify(title='Tuturu',message='You got mess',app_name='Tuturu')
+            print('New messages: '+str(len(nuser)))
+            self.messagelabel.config(text = 'New messages:{0}'.format(len(nuser)))
+
     def Update(self):
         #update module
         self.CheckForProjects()
+        self.CheckForMess()
         print(self.logdata)
         self.updtimer.cancel()
         self.updtimer = Timer(self.updtime, self.Update)

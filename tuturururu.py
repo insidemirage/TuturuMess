@@ -169,6 +169,7 @@ class Exchange(object):
             print('new message')
             self.lmessage = text
             # notification.notify(title='Tuturu',message='You got mess',app_name='Tuturu')
+            playsound('./src/song.mp3')
             print('New messages: '+str(len(nuser)))
             self.messagelabel.config(text = 'New messages:{0}'.format(len(nuser)))
 

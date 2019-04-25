@@ -18,6 +18,17 @@ class Program(object):
         self.root.configure(background='white')
         self.root.iconbitmap('icon.ico')
         self.root.resizable(width=False, height=False)
+        self.mainmenu = Menu(self.root) 
+        self.root.config(menu=self.mainmenu)
+        self.filemenu = Menu(self.mainmenu, tearoff=0)
+        self.mainmenu.add_cascade(label='Файл', menu = self.filemenu)
+        self.filemenu.add_command(label="Открыть...")
+        self.filemenu.add_command(label="Выход")
+        self.basemenu = Menu(self.mainmenu, tearoff=0)
+        self.mainmenu.add_cascade(label='База данных', menu = self.basemenu)
+        self.basemenu.add_command(label = 'База данных')
+        self.basemenu.add_command(label = 'Импорт')
+
         self.labelmessage = []
         self.labelproj = []
         self.frame = []

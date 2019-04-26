@@ -192,4 +192,5 @@ class Exchange(object):
         self.updtimer.cancel()
         self.updtimer = Timer(self.updtime, self.Update)
         self.updtimer.start()
+        # upd
 ex = Program()

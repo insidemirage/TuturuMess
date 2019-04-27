@@ -21,7 +21,8 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">background-color:#414141;</string>
+    <string notr="true">background-color:#414141;
+</string>
    </property>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
@@ -56,11 +57,11 @@
        <property name="styleSheet">
         <string notr="true">background-color:#405655;
 border-radius:10px;
-font: italic 16pt &quot;Times New Roman&quot;;
+font: italic 13pt &quot;Times New Roman&quot;;
 color:white;</string>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Управление аккаунтами</string>
        </property>
       </widget>
      </item>
@@ -91,11 +92,11 @@ color:white;</string>
        <property name="styleSheet">
         <string notr="true">background-color:#405655;
 border-radius:10px;
-font: italic 16pt &quot;Times New Roman&quot;;
+font: italic 13pt &quot;Times New Roman&quot;;
 color:white;</string>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Настройки</string>
        </property>
       </widget>
      </item>
@@ -126,11 +127,11 @@ color:white;</string>
        <property name="styleSheet">
         <string notr="true">background-color:#405655;
 border-radius:10px;
-font: italic 16pt &quot;Times New Roman&quot;;
+font: italic 13pt &quot;Times New Roman&quot;;
 color:white;</string>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>О проекте</string>
        </property>
       </widget>
      </item>
@@ -166,6 +167,17 @@ color:white;</string>
          <height>171</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#405655;
+border-radius:10px;
+width:95%;
+margin-left:10px;
+margin-right:10px;
+QLabel {
+font: italic 16pt &quot;Times New Roman&quot;;
+color:white;
+}</string>
+       </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -175,7 +187,92 @@ color:white;</string>
        <property name="lineWidth">
         <number>0</number>
        </property>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>351</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: italic 12pt &quot;Times New Roman&quot;;
+color:white;</string>
+        </property>
+        <property name="text">
+         <string>Новые сообщения: 0</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>50</y>
+          <width>341</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: italic 12pt &quot;Times New Roman&quot;;
+color:white;
+</string>
+        </property>
+        <property name="text">
+         <string>Новые заказы: 0</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>130</y>
+          <width>111</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(57, 103, 101);
+qproperty-icon: url(:/src/mess.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>130</y>
+          <width>111</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(57, 103, 101);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <zorder>label</zorder>
+       <zorder>label_2</zorder>
+       <zorder>pushButton_5</zorder>
+       <zorder>pushButton_4</zorder>
       </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>

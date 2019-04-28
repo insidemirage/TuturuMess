@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="images">
+    <file>src/kwork.png</file>
+  </qresource>
+</RCC>

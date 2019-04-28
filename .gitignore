@@ -12,3 +12,8 @@ index.html
 stash/bd_controller.py
 stash/exchange.py
 stash/form.py
+okp/node_modules/*
+okp/*.js
+okp/*.json
+okp/maintu.py
+okp/okp.rar

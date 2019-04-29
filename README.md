@@ -14,6 +14,8 @@ how to run:
 ```bash
 pip install requests
 pip install bs4
-pip install requests
 pip install pytk
+pip install pyqt5
 ```
+pytk'll be removed soon
+

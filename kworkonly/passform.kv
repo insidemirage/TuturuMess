@@ -1,0 +1,37 @@
+<MainPassWidget>:
+    orientation:"vertical"
+    padding: dp(5),dp(5)
+    Label:
+        id:empty
+    TextInput:
+        text:"Hello"
+        size_hint:None,None
+        size:(280,40)
+        pos_hint:{'center_x':0.5}
+    Label:
+        id:empty
+        size_hint:None,None
+        size:280,10
+    TextInput:
+        text:"World"
+        size_hint:None,None
+        size:(280,40)
+        pos_hint:{'center_x':0.5}
+    Label:
+        id:empty
+    Button:
+        text:"Send"
+        size_hint:None,None
+        size:(280,40)
+        pos_hint:{'center_x':0.5}
+<MainLayout>:
+    size_hint:1,1
+    orientation:'vertical'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            # self here refers to the widget i.e FloatLayout
+            pos: self.pos
+            size: self.size
+    MainPassWidget:
